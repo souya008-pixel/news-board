@@ -1,0 +1,66 @@
+# ニュースボードを GitHub Pages で公開する。
+# 20分ごとに server.ps1 -Export でニュースと指数を取得し、public/ と一緒に公開する。
+# （server.ps1 は Windows PowerShell 5.1 用なので、取得は Windows のランナーで行う）
+name: ニュースを更新して公開
+
+on:
+  schedule:
+    - cron: '7,27,47 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - name: ニュースと指数を取得
+        shell: powershell
+        run: .\server.ps1 -Export data
+      - uses: actions/upload-artifact@v4
+        with:
+          name: data
+          path: data
+          retention-days: 1
+
+  deploy:
+    needs: fetch
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+      actions: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: 公開するファイルをまとめる
+        run: cp -r public _site
+      - uses: actions/download-artifact@v4
+        with:
+          name: data
+          path: _site/data
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      # GitHub は、しばらく更新のないリポジトリの定期実行を約60日で止めるので、毎回有効にし直しておく
+      - name: 定期実行を有効なままにする
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/update.yml/enable"

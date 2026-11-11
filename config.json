@@ -1,0 +1,62 @@
+{
+  "_comment": "ニュースボードの設定。feeds に RSS を追加・削除できます（url か googleQuery のどちらかを指定）。lang:'en' は英語記事、max は1配信元あたりの最大件数。保存後、画面の「更新」で反映されます。",
+
+  "categories": [
+    { "id": "top",      "label": "トップ" },
+    { "id": "domestic", "label": "国内" },
+    { "id": "world",    "label": "国際" },
+    { "id": "market",   "label": "経済・マーケット" },
+    { "id": "tech",     "label": "テクノロジー" }
+  ],
+
+  "feeds": [
+    { "category": "top", "name": "Yahoo!ニュース 主要", "url": "https://news.yahoo.co.jp/rss/topics/top-picks.xml" },
+    { "category": "top", "name": "NHK 主要",            "url": "https://news.web.nhk/n-data/conf/na/rss/cat0.xml" },
+    { "category": "top", "name": "Googleニュース",      "url": "https://news.google.com/rss?hl=ja&gl=JP&ceid=JP:ja", "max": 30 },
+
+    { "category": "domestic", "name": "NHK 社会",            "url": "https://news.web.nhk/n-data/conf/na/rss/cat1.xml", "max": 40 },
+    { "category": "domestic", "name": "NHK 政治",            "url": "https://news.web.nhk/n-data/conf/na/rss/cat4.xml", "max": 30 },
+    { "category": "domestic", "name": "Yahoo!ニュース 国内", "url": "https://news.yahoo.co.jp/rss/topics/domestic.xml" },
+    { "category": "domestic", "name": "Googleニュース 国内", "url": "https://news.google.com/rss/headlines/section/topic/NATION?hl=ja&gl=JP&ceid=JP:ja", "max": 40 },
+
+    { "category": "world", "name": "NHK 国際",            "url": "https://news.web.nhk/n-data/conf/na/rss/cat6.xml", "max": 40 },
+    { "category": "world", "name": "Yahoo!ニュース 国際", "url": "https://news.yahoo.co.jp/rss/topics/world.xml" },
+    { "category": "world", "name": "BBCニュース 日本語",  "url": "https://feeds.bbci.co.uk/japanese/rss.xml" },
+    { "category": "world", "name": "CNN.co.jp",           "url": "http://feeds.cnn.co.jp/rss/cnn/cnn.rdf" },
+    { "category": "world", "name": "Googleニュース 国際", "url": "https://news.google.com/rss/headlines/section/topic/WORLD?hl=ja&gl=JP&ceid=JP:ja", "max": 40 },
+    { "category": "world", "name": "BBC News",            "url": "https://feeds.bbci.co.uk/news/world/rss.xml", "lang": "en", "max": 25 },
+    { "category": "world", "name": "The New York Times",  "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml", "lang": "en", "max": 25 },
+    { "category": "world", "name": "Al Jazeera",          "url": "https://www.aljazeera.com/xml/rss/all.xml", "lang": "en", "max": 25 },
+
+    { "category": "market", "name": "NHK 経済",                "url": "https://news.web.nhk/n-data/conf/na/rss/cat5.xml", "max": 40 },
+    { "category": "market", "name": "Yahoo!ニュース 経済",     "url": "https://news.yahoo.co.jp/rss/topics/business.xml" },
+    { "category": "market", "name": "Googleニュース ビジネス", "url": "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=ja&gl=JP&ceid=JP:ja", "max": 40 },
+    { "category": "market", "name": "株式市況（Google）",      "googleQuery": "日経平均 OR 東証 OR 株式市場 OR 米国株 when:1d", "max": 40 },
+    { "category": "market", "name": "決算・業績（Google）",    "googleQuery": "決算 OR 業績予想 OR 上方修正 OR 下方修正 when:2d", "max": 40 },
+    { "category": "market", "name": "為替・金利（Google）",    "googleQuery": "円相場 OR 為替 OR 日銀 OR FRB OR 長期金利 when:1d", "max": 30 },
+    { "category": "market", "name": "東洋経済オンライン",      "url": "https://toyokeizai.net/list/feed/rss", "stripTitle": "\\s*\\|[^|]*\\|\\s*東洋経済オンライン\\s*$" },
+    { "category": "market", "name": "ダイヤモンド・オンライン", "url": "https://diamond.jp/list/feed/rss/dol" },
+    { "category": "market", "name": "Bloomberg Markets",       "url": "https://feeds.bloomberg.com/markets/news.rss", "lang": "en" },
+    { "category": "market", "name": "CNBC",                    "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "lang": "en" },
+    { "category": "market", "name": "MarketWatch",             "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories", "lang": "en" },
+    { "category": "market", "name": "NYT Business",            "url": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml", "lang": "en", "max": 25 },
+
+    { "category": "tech", "name": "Yahoo!ニュース IT",          "url": "https://news.yahoo.co.jp/rss/topics/it.xml" },
+    { "category": "tech", "name": "ITmedia NEWS",               "url": "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml", "max": 30 },
+    { "category": "tech", "name": "Googleニュース テクノロジー", "url": "https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=ja&gl=JP&ceid=JP:ja", "max": 40 },
+    { "category": "tech", "name": "BBC Technology",             "url": "https://feeds.bbci.co.uk/news/technology/rss.xml", "lang": "en" }
+  ],
+
+  "excludeTitles": ["株価・株式情報", "基準価格・投資信託情報", "投資信託情報", "株価・チャート", "為替レート・相場"],
+
+  "markets": [
+    { "symbol": "^N225",   "label": "日経平均",       "digits": 2, "upIsGood": true },
+    { "symbol": "^DJI",    "label": "NYダウ",         "digits": 2, "upIsGood": true },
+    { "symbol": "^IXIC",   "label": "ナスダック",     "digits": 2, "upIsGood": true },
+    { "symbol": "^GSPC",   "label": "S&P500",         "digits": 2, "upIsGood": true },
+    { "symbol": "JPY=X",   "label": "ドル/円",        "digits": 2, "unit": "円",   "upIsGood": null, "fxJpy": true },
+    { "symbol": "^TNX",    "label": "米10年債利回り", "digits": 3, "unit": "%",    "upIsGood": null, "showPct": false },
+    { "symbol": "CL=F",    "label": "WTI原油",        "digits": 2, "unit": "ドル", "upIsGood": null },
+    { "symbol": "BTC-JPY", "label": "ビットコイン",   "digits": 0, "unit": "円",   "upIsGood": true }
+  ]
+}
